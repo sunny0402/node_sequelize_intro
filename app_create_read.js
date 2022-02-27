@@ -68,39 +68,56 @@ async function dbOperations() {
       email: "sunny.codes@gmail.com",
     });
 
-    //update records with save method
+    //display created rows
+
+    const articlesJSON = articleInstances.map((an_article) =>
+      an_article.toJSON()
+    );
+    // console.log(articlesJSON);
+    // console.log(user1.toJSON());
+    // console.log(user2.toJSON());
+
+    //find by primary key
     // const articleById = await Article.findByPk(2);
     // console.log(articleById.toJSON());
-    // articleById.title = articleById.title + " Updating Title.";
-    // await articleById.save();
-    // //convert instance or collection of instances to JSON
-    // console.log(articleById.get({ plain: true }));
 
-    // update with update method
-    // const articleById = await Article.findByPk(2);
-    // articleById.update(
-    //   {
-    //     title: "New title.",
-    //     author: "sunny",
+    //returns first match
+    // const articleByReadTime = await Article.findOne({
+    //   where: { readTime: 10 },
+    // });
+    // console.log(articleByReadTime.toJSON());
+
+    // find all entires in table
+    // const all_users = await User.findAll();
+    // console.log(all_users.map((a_user) => a_user.toJSON()));
+
+    //find all and where
+    // const all_articles_where = await Article.findAll({
+    //   where: {
+    //     author: "sunny-codes",
+    //     isPublished: true,
     //   },
-    //   //fields sets which properties are allowed to be updated
-    //   { fields: ["title", "author"] }
-    // );
-    // console.log(articleById.get({ plain: true }));
+    // });
+    // console.log(all_articles_where.map((an_article) => an_article.toJSON()));
 
-    // delete records
-    // const first_article = await Article.findByPk(1);
-    // await first_article.destroy();
-    // const all_articles = await Article.findAll();
-    // console.log(all_articles.map((an_article) => an_article.toJSON()));
+    const some_attributes = await Article.findAll({
+      attributes: ["id", "author", "publishDate", "readTime"],
+      where: {
+        author: "sunny-codes",
+        publishDate: {
+          [Op.gte]: "2022-02-24",
+        },
+        readTime: {
+          [Op.gt]: 4,
+        },
+      },
+      // ascending is default
+      //   order: [["id", "DESC"]],
+      order: [["publishDate", "DESC"]],
+    });
+    console.log(some_attributes.map((an_article) => an_article.toJSON()));
 
-    // soft deletes: mark record as deleted instead of actually deleting
-    const first_article = await Article.findByPk(1);
-    await first_article.destroy();
-    const all_articles = await Article.findAll();
-    console.log(all_articles.map((an_article) => an_article.toJSON()));
-
-    //end of try block
+    //end of try
   } catch (error) {
     if (error.name === "SequelizeValidationError") {
       const errors = error.errors.map((err) => err.message);

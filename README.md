@@ -140,3 +140,22 @@ Foo.findAll({
 Ordering
 
 order: [['publishDate', 'ASC']],
+
+Incrementing
+
+```
+const jane = await User.create({ name: "Jane", age: 100, cash: 5000 });
+await jane.increment({
+  'age': 2,
+  'cash': 100
+});
+
+// If the values are incremented by the same amount, you can use this other syntax as well:
+await jane.increment(['age', 'cash'], { by: 2 });
+```
+
+Associations
+https://sequelize.org/master/manual/assocs.html
+
+Sequelize CLI
+https://github.com/sequelize/cli

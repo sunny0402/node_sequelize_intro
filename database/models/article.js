@@ -91,6 +91,8 @@ function articleModelFunction(sqlize_connection_instance) {
       //   freezeTableName: true, // disable plural table names
       //   modelName: 'movie', // set model name to 'movie'; table name will be 'movies'
       //      tableName: 'my_movies_table', // table name change
+      // soft deletes(paranoid): mark record as deleted instead of actually deleting
+      paranoid: "true",
       sequelize: sqlize_connection_instance,
     }
   );
