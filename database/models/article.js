@@ -46,7 +46,6 @@ function articleModelFunction(sqlize_connection_instance) {
           },
         },
       },
-
       publishDate: {
         type: Sequelize.DATEONLY,
         allowNull: false,
@@ -87,11 +86,11 @@ function articleModelFunction(sqlize_connection_instance) {
     },
     // 2. Model options object
     {
-      // timestamps: false, // disable timestamps
+      //   timestamps: false, // disable timestamps
       //   freezeTableName: true, // disable plural table names
       //   modelName: 'movie', // set model name to 'movie'; table name will be 'movies'
-      //      tableName: 'my_movies_table', // table name change
-      // soft deletes(paranoid): mark record as deleted instead of actually deleting
+      //   tableName: 'my_movies_table', // table name change
+      //   soft deletes(paranoid): mark record as deleted instead of actually deleting
       paranoid: "true",
       sequelize: sqlize_connection_instance,
     }
